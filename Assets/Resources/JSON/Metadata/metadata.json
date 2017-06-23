@@ -1,0 +1,122 @@
+{
+    "Units": [
+        {
+            "uid": "antellope",
+            "type": "Flagship",
+            "hp": 2500,
+            "speed": 10,
+            "fuel": 10000,
+            "weaponSlots": 5
+        },
+        {
+            "uid": "scout",
+            "type": "Scout",
+            "hp": 100,
+            "speed": 50,
+            "fuel": 100,
+            "weaponSlots": 2,
+            "weaponsList": "vulcan javelin",
+            "equipmentSlots": 1,
+            "equipmentList": "plating"
+        },
+        {
+            "uid": "deimos_scout",
+            "type": "Scout",
+            "hp": 50,
+            "speed": 60,
+            "fuel": 150,
+            "weaponSlots": 1,
+            "weaponsList": "pulse",
+            "equipmentSlots": 1,
+            "equipmentList": "afterburners"
+        }
+    ],
+    "Equipment": [
+        {
+            "uid": "javelin",
+            "type": "weapon",
+            "subtype": "missle",
+            "baseDamage": 100,
+            "hitChance": 0.8,
+            "dodgeChance": 0,
+            "numShotsPerAttack": 1,
+            "damageBonus": 0,
+            "healthBonus": 0,
+            "damageReduction": 0,
+            "range": 3,
+            "ammoCapacity": 4
+        },
+        {
+            "uid": "vulcan",
+            "type": "weapon",
+            "subtype": "cannon",
+            "baseDamage": 25,
+            "hitChance": 0.65,
+            "dodgeChance": 0,
+            "numShotsPerAttack": 3,
+            "damageBonus": 0,
+            "healthBonus": 0,
+            "damageReduction": 0,
+            "range": 1,
+            "ammoCapacity": 30
+        },
+        {
+            "uid": "pulse",
+            "type": "weapon",
+            "subtype": "cannon",
+            "baseDamage": 5,
+            "hitChance": 0.4,
+            "dodgeChance": 0,
+            "numShotsPerAttack": 10,
+            "damageBonus": 0,
+            "healthBonus": 0,
+            "damageReduction": 0,
+            "range": 1,
+            "ammoCapacity": 50
+        },
+        {
+            "uid": "plating",
+            "type": "armor",
+            "subtype": "plating",
+            "baseDamage": 0,
+            "hitChance": 0,
+            "dodgeChance": 0,
+            "numShotsPerAttack": 0,
+            "damageBonus": 0,
+            "healthBonus": 50,
+            "damageReduction": 2,
+            "range": 0,
+            "ammoCapacity": 0
+        },
+        {
+            "uid": "afterburners",
+            "type": "engine",
+            "subtype": "booster",
+            "baseDamage": 0,
+            "hitChance": 0,
+            "dodgeChance": 0.1,
+            "numShotsPerAttack": 0,
+            "damageBonus": 0,
+            "healthBonus": 0,
+            "damageReduction": 0,
+            "range": 0,
+            "ammoCapacity": 0
+        }
+    ],
+    "Characters": [
+        {
+            "uid": "sherman",
+            "damageReduction": 1,
+            "dodgeChance": 0.1,
+            "hitChance": 0.05
+        },
+        {
+            "uid": "defaultEnemy",
+            "damageReduction": 0,
+            "dodgeChance": 0,
+            "hitChance": 0
+        }
+    ],
+    "Skills": [],
+    "ScreenInfo": []
+}
