@@ -12,7 +12,7 @@ namespace core.events
     /// <summary>
     /// A wrapper for the UnityEvent that takes a parameter of type object
     /// </summary>
-    public class GameEvent : UnityEvent<object>
+    public class GameEvent : UnityEvent<EventTypeEnum, object>
     {
     }
 }

@@ -6,6 +6,8 @@
 /// ------------------------------------------------------------------------***/
 
 using core.assets;
+using core.constants;
+using core.events;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,8 +47,10 @@ namespace core.audio
         {
             GameObject core = GameObject.Find("Core");
             source = core.AddComponent<AudioSource>();
-        }
 
+            EventController.GetInstance().RegisterForEvent(EventTypeEnum.ButtonPressed, HandleEvent);
+        }
+        
         public void PreloadAudio()
         {
             AudioClip[] clipArray = Resources.LoadAll<AudioClip>("Sounds/");
@@ -75,6 +79,16 @@ namespace core.audio
             AudioClip clip = clipMap[clipName];
             source.clip = clip;
             source.Play();
+        }
+
+        public void HandleEvent(EventTypeEnum type, object obj)
+        {
+            switch (type)
+            {
+                case EventTypeEnum.ButtonPressed:
+                    PlaySound(GameConstants.SND_BUTTON);
+                    break;
+            }
         }
     }
 }

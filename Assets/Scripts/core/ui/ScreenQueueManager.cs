@@ -130,7 +130,7 @@ namespace core.ui
             CurrentScreen = screen;
         }
 
-        private void OnEscapePressed(object obj)
+        private void OnEscapePressed(EventTypeEnum type, object obj)
         {
             if (CanCloseScreen())
             {

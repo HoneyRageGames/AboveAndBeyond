@@ -7,6 +7,7 @@
 
 using core.audio;
 using core.constants;
+using core.events;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,7 +46,7 @@ namespace core.ui.screens
         private void OnAnyButtonClicked(string name)
         {
             Debug.Log("Button: " + name + " clicked");
-            SoundEffectController.GetInstance().PlaySound(GameConstants.SND_BUTTON);
+            EventController.GetInstance().FireEvent(EventTypeEnum.ButtonPressed, name);
         }
     }
 }

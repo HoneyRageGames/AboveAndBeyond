@@ -35,7 +35,7 @@ namespace core.events
         /// <summary>
         /// Registers a method to listen to the invokes of a GameEvent
         /// </summary>
-        public void RegisterForEvent(EventTypeEnum type, UnityAction<object> callback)
+        public void RegisterForEvent(EventTypeEnum type, UnityAction<EventTypeEnum, object> callback)
         {
             GameEvent uEvent = null;
             if (!eventMap.ContainsKey(type))
@@ -50,7 +50,7 @@ namespace core.events
         /// <summary>
         /// Stops a method from listening for the invokes from a GameEvent
         /// </summary>
-        public void UnregisterForEvent(EventTypeEnum type, UnityAction<object> callback)
+        public void UnregisterForEvent(EventTypeEnum type, UnityAction<EventTypeEnum, object> callback)
         {
             GameEvent uEvent = null;
             if (!eventMap.ContainsKey(type))
@@ -78,7 +78,7 @@ namespace core.events
 
             uEvent = eventMap[type];
 
-            uEvent.Invoke(obj);
+            uEvent.Invoke(type, obj);
         }
 
         public void ClearAllListeners()
