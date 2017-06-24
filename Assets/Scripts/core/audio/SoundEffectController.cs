@@ -49,6 +49,7 @@ namespace core.audio
             source = core.AddComponent<AudioSource>();
 
             EventController.GetInstance().RegisterForEvent(EventTypeEnum.ButtonPressed, HandleEvent);
+            EventController.GetInstance().RegisterForEvent(EventTypeEnum.EscapePressed, HandleEvent);
         }
         
         public void PreloadAudio()
@@ -87,6 +88,9 @@ namespace core.audio
             {
                 case EventTypeEnum.ButtonPressed:
                     PlaySound(GameConstants.SND_BUTTON);
+                    break;
+                case EventTypeEnum.EscapePressed:
+                    PlaySound(GameConstants.SND_MENU);
                     break;
             }
         }

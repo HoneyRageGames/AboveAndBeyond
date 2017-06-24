@@ -10,6 +10,7 @@ using core.audio;
 using core.constants;
 using core.input;
 using core.ui;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace core
@@ -44,10 +45,19 @@ namespace core
             MusicController.GetInstance().Initialize();
             SoundEffectController.GetInstance().Initialize();
 
+            List<AssetLoadRequestTO> preloadAssets = new List<AssetLoadRequestTO>();
+
             // Preload some button sound effects
             AssetLoadRequestTO btnSFX = 
                 AssetLoadRequestTO.CreateSoundEffectAssetRequest(GameConstants.SND_BUTTON);
-            AssetLoader.GetInstance().LoadAsset(btnSFX);
+
+            preloadAssets.Add(btnSFX);
+
+            AssetLoadRequestTO escSFX =
+                AssetLoadRequestTO.CreateSoundEffectAssetRequest(GameConstants.SND_MENU);
+            preloadAssets.Add(escSFX);
+
+            AssetLoader.GetInstance().LoadAssets(preloadAssets);
         }
 
         public void OnApplicationQuit()
