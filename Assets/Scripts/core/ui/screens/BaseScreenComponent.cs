@@ -23,7 +23,6 @@ namespace core.ui.screens
 
         public virtual void Start()
         {
-            Debug.Log("initialize buttons");
             // Hook up buttons
             Button[] buttons = GetComponentsInChildren<Button>();
 

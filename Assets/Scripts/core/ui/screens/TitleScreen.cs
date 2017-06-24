@@ -61,11 +61,8 @@ namespace core.ui.screens
 
         private void LoadMusic()
         {
-            AssetLoadRequestTO to = new AssetLoadRequestTO();
-            to.assetLoadType = AssetLoadType.Music;
-            to.path = GameConstants.MUSIC_LOC + GameConstants.SONG_TITLE;
+            AssetLoadRequestTO to = AssetLoadRequestTO.CreateMusicAssetRequest(GameConstants.SONG_TITLE);
             to.callback = OnMusicLoaded;
-
             AssetLoader.GetInstance().LoadAsset(to);
         }
 

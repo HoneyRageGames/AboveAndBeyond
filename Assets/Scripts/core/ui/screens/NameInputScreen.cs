@@ -48,17 +48,11 @@ namespace core.ui.screens
             // Close all the screens and then start loading
             List<AssetLoadRequestTO> requests = new List<AssetLoadRequestTO>();
 
-            AssetLoadRequestTO to = new AssetLoadRequestTO();
-            to.assetLoadType = AssetLoadType.Metadata;
-            to.path = GameConstants.METADATA_LOC + GameConstants.METADATA_BASE_FILE;
+            AssetLoadRequestTO baseData = AssetLoadRequestTO.CreateMetadataAssetRequest(GameConstants.METADATA_BASE_FILE);
+            requests.Add(baseData);
 
-            requests.Add(to);
-
-            AssetLoadRequestTO ep1 = new AssetLoadRequestTO();
-            ep1.assetLoadType = AssetLoadType.Conversation;
-            ep1.path = GameConstants.CONVERSATION_LOC + GameConstants.EP01;
+            AssetLoadRequestTO ep1 = AssetLoadRequestTO.CreateConversationRequest(GameConstants.EP01);
             requests.Add(ep1);
-
 
             AssetLoader.GetInstance().LoadAssets(requests);
         }

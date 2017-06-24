@@ -30,10 +30,41 @@ namespace core.assets
         public OnLoadedCallback callback;
 
         /// <summary>
+        /// Creates an asset request for a new conversation json
+        /// </summary>
+        public static AssetLoadRequestTO CreateConversationRequest(string fileName)
+        {
+            AssetLoadRequestTO to = new AssetLoadRequestTO();
+            to.assetLoadType = AssetLoadType.Conversation;
+            to.path = GameConstants.CONVERSATION_LOC + fileName;
+            return to;
+        }
+
+        /// <summary>
+        /// Creates an asset request for a metadata json
+        /// </summary>
+        public static AssetLoadRequestTO CreateMetadataAssetRequest(string fileName)
+        {
+            AssetLoadRequestTO to = new AssetLoadRequestTO();
+            to.assetLoadType = AssetLoadType.Metadata;
+            to.path = GameConstants.METADATA_LOC + fileName;
+            return to;
+        }
+
+        /// <summary>
+        /// Creates an asset request for a music 
+        /// </summary>
+        public static AssetLoadRequestTO CreateMusicAssetRequest(string fileName)
+        {
+            AssetLoadRequestTO to = new AssetLoadRequestTO();
+            to.assetLoadType = AssetLoadType.Music;
+            to.path = GameConstants.MUSIC_LOC + fileName;
+            return to;
+        }
+
+        /// <summary>
         /// Creates an asset request for a sound effect
         /// </summary>
-        /// <param name="fileName"></param>
-        /// <returns></returns>
         public static AssetLoadRequestTO CreateSoundEffectAssetRequest(string fileName)
         {
             AssetLoadRequestTO to = new AssetLoadRequestTO();

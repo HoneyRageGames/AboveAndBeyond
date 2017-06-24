@@ -41,6 +41,9 @@ namespace core.assets
 
         public void LoadAsset(AssetLoadRequestTO to)
         {
+            expected = 1;
+            loaded = 0;
+
             startDate = DateTime.Now;
 
             MainLoop main = MainLoop.GetInstance();
@@ -57,6 +60,7 @@ namespace core.assets
             startDate = DateTime.Now;
 
             expected = assetLoadRequestList.Count;
+            loaded = 0;
 
             MainLoop main = MainLoop.GetInstance();
 
