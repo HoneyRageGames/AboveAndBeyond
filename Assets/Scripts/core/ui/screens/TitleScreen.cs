@@ -113,8 +113,6 @@ namespace core.ui.screens
                 return;
             }
 
-            //SetButtonStatus(false);
-
             // Add it to the title game object
             GameObject MainMenu = GameObject.Find(GameConstants.UI_MAIN_MENU);
 

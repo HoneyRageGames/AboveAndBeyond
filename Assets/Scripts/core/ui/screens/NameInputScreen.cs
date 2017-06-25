@@ -7,6 +7,8 @@
 
 using core.assets;
 using core.constants;
+using core.dialog;
+using core.events;
 using core.player;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,13 +50,28 @@ namespace core.ui.screens
             // Close all the screens and then start loading
             List<AssetLoadRequestTO> requests = new List<AssetLoadRequestTO>();
 
-            AssetLoadRequestTO baseData = AssetLoadRequestTO.CreateMetadataAssetRequest(GameConstants.METADATA_BASE_FILE);
+            AssetLoadRequestTO baseData = 
+                AssetLoadRequestTO.CreateMetadataAssetRequest(GameConstants.METADATA_BASE_FILE);
             requests.Add(baseData);
 
             AssetLoadRequestTO ep1 = AssetLoadRequestTO.CreateConversationRequest(GameConstants.EP01);
             requests.Add(ep1);
 
+            EventController.GetInstance().RegisterForEvent(
+                EventTypeEnum.AssetsLoadMultipleComplete, OnLoadCompleteEvent);
+
             AssetLoader.GetInstance().LoadAssets(requests);
         }
+
+        public void OnLoadCompleteEvent(EventTypeEnum type, object obj)
+        {
+            EventController.GetInstance().UnregisterForEvent(
+                EventTypeEnum.AssetsLoadMultipleComplete, OnLoadCompleteEvent);
+
+            ScreenQueueManager.GetInstance().ClearQueueAndDestroyAllScreens();
+
+            DialogController.GetInstance().StartConversation();
+        }
+
     }
 }

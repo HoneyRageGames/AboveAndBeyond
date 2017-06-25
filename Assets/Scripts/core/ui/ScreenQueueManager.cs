@@ -99,6 +99,11 @@ namespace core.ui
             }
 
             screenStack.Clear();
+
+            if (CurrentScreen != null)
+            {
+                GameObject.Destroy(CurrentScreen);
+            }
         }
 
         public void ShowNextScreen()

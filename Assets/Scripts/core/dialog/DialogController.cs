@@ -25,8 +25,8 @@ namespace core.dialog
         private Conversation currConv;
         private ConversationNode currNode;
 
-        private Text bodyTextField;
-        private Image portrait;
+        //private Text bodyTextField;
+        //private Image portrait;
         private Animator animPortrait;
 
         private Dictionary<string, Sprite> portraitSprites;
@@ -99,7 +99,7 @@ namespace core.dialog
                 return;
             }
 
-            Debug.Log("Start Conversation.");
+            Debug.Log("Start Conversation: " + currConv.uid);
 
             // Preload images relevant for the conversation
             PreloadPortraits();
@@ -127,8 +127,8 @@ namespace core.dialog
 
             Debug.Log(currNode.displayBody);
 
-            bodyTextField.text = currNode.displayBody;
-            portrait.sprite = portraitSprites[currNode.spriteName];
+            //bodyTextField.text = currNode.displayBody;
+            //portrait.sprite = portraitSprites[currNode.spriteName];
 
             DisplayChoices(currNode);
 
@@ -161,7 +161,7 @@ namespace core.dialog
                 sb.Append(i + "): " + choice.text);
                 sb.Append("\n");
 
-                ShowChoice(choice, i);
+                //ShowChoice(choice, i);
             }
 
             Debug.Log(sb.ToString());

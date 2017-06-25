@@ -21,5 +21,9 @@ namespace core.events
         /// The pressed the escape button specifically
         /// </summary>
         EscapePressed,
+
+        AssetsLoadMultipleComplete,
+
+        AssetLoadComplete,
     }
 }

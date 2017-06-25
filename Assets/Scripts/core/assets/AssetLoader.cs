@@ -8,6 +8,7 @@
 using core.audio;
 using core.data;
 using core.dialog;
+using core.events;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,8 +21,8 @@ namespace core.assets
     {
         private static AssetLoader instance;
 
-        private int expected = 0;
-        private int loaded = 0;
+        public int expected = 0;
+        public int loaded = 0;
 
         private DateTime startDate;
 
@@ -88,6 +89,7 @@ namespace core.assets
                 to.callback(to);
             }
 
+            EventController.GetInstance().FireEvent(EventTypeEnum.AssetLoadComplete, null);
             LoadFinished();
         }
 
@@ -98,6 +100,8 @@ namespace core.assets
 
             if (loaded >= expected)
             {
+                // FIre off the event to notify others that we've completed our multi-load
+                EventController.GetInstance().FireEvent(EventTypeEnum.AssetsLoadMultipleComplete, loaded);
                 loaded = expected = 0;
 
                 DateTime endDate = DateTime.Now;
