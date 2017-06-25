@@ -20,8 +20,8 @@ namespace core.assets
     {
         private static AssetLoader instance;
 
-        private int expected;
-        private int loaded;
+        private int expected = 0;
+        private int loaded = 0;
 
         private DateTime startDate;
 
@@ -41,8 +41,8 @@ namespace core.assets
 
         public void LoadAsset(AssetLoadRequestTO to)
         {
-            expected = 1;
-            loaded = 0;
+            expected += 1;
+            loaded += 0;
 
             startDate = DateTime.Now;
 
@@ -59,12 +59,11 @@ namespace core.assets
 
             startDate = DateTime.Now;
 
-            expected = assetLoadRequestList.Count;
-            loaded = 0;
+            expected += assetLoadRequestList.Count;
 
             MainLoop main = MainLoop.GetInstance();
 
-            for (int i = 0; i < expected; i++)
+            for (int i = 0, count = assetLoadRequestList.Count; i < count; i++)
             {
                 AssetLoadRequestTO to = assetLoadRequestList[i];
               
@@ -99,6 +98,8 @@ namespace core.assets
 
             if (loaded >= expected)
             {
+                loaded = expected = 0;
+
                 DateTime endDate = DateTime.Now;
 
                 Debug.Log("Total Loading Time: " +
