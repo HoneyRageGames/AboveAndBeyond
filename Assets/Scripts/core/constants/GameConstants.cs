@@ -23,6 +23,8 @@ namespace core.constants
         public const string SND_BUTTON = "sfx_sounds_button6";
         public const string SND_MENU = "sfx_menu_select2";
 
+        public const string TEXTURE_LOC = "Textures/";
+
         /// <summary>
         /// How long we want the splash screen to display for in seconds
         /// </summary>

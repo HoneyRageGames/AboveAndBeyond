@@ -57,6 +57,7 @@ namespace core.ui.screens
             AssetLoadRequestTO ep1 = AssetLoadRequestTO.CreateConversationRequest(GameConstants.EP01);
             requests.Add(ep1);
 
+
             EventController.GetInstance().RegisterForEvent(
                 EventTypeEnum.AssetsLoadMultipleComplete, OnLoadCompleteEvent);
 

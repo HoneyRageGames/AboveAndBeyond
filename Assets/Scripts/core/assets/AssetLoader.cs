@@ -67,12 +67,34 @@ namespace core.assets
             for (int i = 0, count = assetLoadRequestList.Count; i < count; i++)
             {
                 AssetLoadRequestTO to = assetLoadRequestList[i];
-              
-                main.StartCoroutine(LoadAsync(to));
+
+                if (to.assetLoadType == AssetLoadType.SpriteSheet)
+                {
+                    LoadAllObjectsInPath(to);
+                }
+                else
+                {
+                    main.StartCoroutine(LoadAsync(to));
+                }
+                
             }
         }
 
-        IEnumerator LoadAsync(AssetLoadRequestTO to)
+        private void LoadAllObjectsInPath(AssetLoadRequestTO to)
+        {
+            to.loadObjectList = Resources.LoadAll(to.path);
+            HandleAssetLoaded(to);
+
+            if (to.callback != null)
+            {
+                to.callback(to);
+            }
+
+            EventController.GetInstance().FireEvent(EventTypeEnum.AssetLoadComplete, null);
+            LoadFinished();
+        }
+
+        private IEnumerator LoadAsync(AssetLoadRequestTO to)
         {
             ResourceRequest req = Resources.LoadAsync(to.path);
 
@@ -121,6 +143,7 @@ namespace core.assets
             {
                 case AssetLoadType.Conversation:
                     DialogController.GetInstance().LoadDialogFromTO(to);
+                    DialogController.GetInstance().PreloadPortraits();
                     break;
                 case AssetLoadType.Metadata:
                     MetaDataManager.GetInstance().LoadMetadataFromTO(to);

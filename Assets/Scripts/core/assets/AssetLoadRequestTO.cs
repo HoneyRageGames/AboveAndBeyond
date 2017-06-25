@@ -16,6 +16,7 @@ namespace core.assets
         Music,
         Conversation,
         SaveData,
+        SpriteSheet,
     }
 
     public class AssetLoadRequestTO
@@ -26,8 +27,14 @@ namespace core.assets
         public AssetLoadType assetLoadType;
 
         public UnityEngine.Object loadedObject;
+        public UnityEngine.Object[] loadObjectList;
 
         public OnLoadedCallback callback;
+
+        private AssetLoadRequestTO()
+        {
+
+        }
 
         /// <summary>
         /// Creates an asset request for a new conversation json
@@ -70,6 +77,18 @@ namespace core.assets
             AssetLoadRequestTO to = new AssetLoadRequestTO();
             to.assetLoadType = AssetLoadType.SoundEfect;
             to.path = GameConstants.SOUND_LOC + fileName;
+
+            return to;
+        }
+
+        /// <summary>
+        /// Creates an asset request to load a texture spritesheet
+        /// </summary>
+        public static AssetLoadRequestTO CreateSpriteSheetAssetRequest(string fileName)
+        {
+            AssetLoadRequestTO to = new AssetLoadRequestTO();
+            to.assetLoadType = AssetLoadType.SpriteSheet;
+            to.path = GameConstants.TEXTURE_LOC + fileName;
 
             return to;
         }

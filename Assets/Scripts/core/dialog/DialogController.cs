@@ -101,12 +101,7 @@ namespace core.dialog
 
             Debug.Log("Start Conversation: " + currConv.uid);
 
-            // Preload images relevant for the conversation
-            PreloadPortraits();
-
             //InitializeUI();
-
-            
 
             DisplayConversationNode(currConv.startNodeTitle);
         }
@@ -274,40 +269,65 @@ namespace core.dialog
         //    animPortrait.runtimeAnimatorController = Resources.Load("Anims/girl_0_ac") as RuntimeAnimatorController;
         //}
 
-        private void PreloadPortraits()
+        public void PreloadPortraits()
         {
             portraitSprites.Clear();
             // Unload the unnecessary assets
             Resources.UnloadUnusedAssets();
 
+            List<AssetLoadRequestTO> requests = new List<AssetLoadRequestTO>();
+
             // Go through all of the nodes and make a list of sheets we need to load.
             List<ConversationNode> nodes = currConv.nodes;
-            List<string> sheets = new List<string>();
+            List<string> sheetsToLoad = new List<string>();
             for (int i = 0, count = nodes.Count; i < count; i++)
             {
                 ConversationNode node = nodes[i];
                 string sheetName = node.spriteSheet;
 
-                if (!sheets.Contains(sheetName))
+                if (!sheetsToLoad.Contains(sheetName))
                 {
-                    sheets.Add(sheetName);
-                    LoadSpriteSheet(sheetName);
+                    sheetsToLoad.Add(sheetName);
+
+                    AssetLoadRequestTO to = AssetLoadRequestTO.CreateSpriteSheetAssetRequest(sheetName);
+                    to.callback = OnSpriteSheetLoaded;
+
+                    requests.Add(to);
                 }
             }
 
-            sheets.Clear();
-            sheets = null;
+            sheetsToLoad.Clear();
+            sheetsToLoad = null;
+
+            AssetLoader.GetInstance().LoadAssets(requests);
         }
 
-        private void LoadSpriteSheet(string sheetName)
+        /// <summary>
+        /// Upon the sprite sheet being loaded, load all the portrait sprites into
+        /// </summary>
+        /// <param name="to"></param>
+        private void OnSpriteSheetLoaded(AssetLoadRequestTO to)
         {
-            // Preload the portrait sets
-            Sprite[] sprites = Resources.LoadAll<Sprite>("Textures/" + sheetName);
+            StringBuilder log = new StringBuilder();
+            log.Append("Portraits Loaded: \n");
+
+            Object[] sprites = to.loadObjectList;
+
             for (int i = 0, count = sprites.Length; i < count; i++)
             {
-                Sprite portrait = sprites[i];
+                Sprite portrait = sprites[i] as Sprite;
+
+                if (portrait == null)
+                {
+                    continue;
+                }
+
                 portraitSprites[portrait.name] = portrait;
+
+                log.Append(portrait.name + "\n");
             }
+
+            Debug.Log(log.ToString());
         }
 
         /// <summary>
