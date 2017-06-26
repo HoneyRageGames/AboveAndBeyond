@@ -42,7 +42,7 @@ namespace core.ui.screens
             if (cachedSaveFileAsset == null)
             {
                 // Show the load file screen
-                cachedSaveFileAsset = Resources.Load<GameObject>("Prefabs/SaveButton");
+                cachedSaveFileAsset = Resources.Load<GameObject>("Prefabs/Modules/SaveButton");
             }
 
             GameObject saveFileButton = GameObject.Instantiate(cachedSaveFileAsset);

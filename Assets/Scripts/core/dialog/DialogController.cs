@@ -7,7 +7,11 @@
 
 using core.assets;
 using core.audio;
+using core.constants;
+using core.events;
 using core.player;
+using core.ui;
+using core.ui.screens;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -103,7 +107,19 @@ namespace core.dialog
 
             //InitializeUI();
 
-            DisplayConversationNode(currConv.startNodeTitle);
+            GameObject MainMenu = GameObject.Find(GameConstants.UI_MAIN_MENU);
+
+            GameObject convScreenObj = UIFactory.CreateScreen(UIFactory.SCR_CONVERSATION, MainMenu);
+            ConversationScreen cs = convScreenObj.GetComponent<ConversationScreen>();
+
+            currNode = currConv.nodeMap[currConv.startNodeTitle];
+
+            cs.DisplayConversationNode(currNode);
+
+            ScreenQueueManager sqm = ScreenQueueManager.GetInstance();
+            sqm.ShowScreenNow(convScreenObj);
+
+            //DisplayConversationNode(currConv.startNodeTitle);
         }
 
         public void SelectChoice(int choiceIndex)
@@ -113,7 +129,11 @@ namespace core.dialog
             SaveDecision(currNode, choiceIndex);
 
             Debug.Log("Index Chosen: " + choiceIndex);
-            DisplayConversationNode(choice.nextNodeTitle);
+            //DisplayConversationNode(choice.nextNodeTitle);
+
+            currNode = currConv.nodeMap[choice.nextNodeTitle];
+
+            EventController.GetInstance().FireEvent(EventTypeEnum.ShowNewConversationNode, currNode);
         }
 
         private void DisplayConversationNode(string titleID)
@@ -376,24 +396,24 @@ namespace core.dialog
         /// <summary>
         /// Handle selecting of conversation choice after the user clicks the choice button
         /// </summary>
-        public void OnChoiceClicked(Button button)
-        {
-            Debug.Log("Choice: " + button.name);
+        //public void OnChoiceClicked(Button button)
+        //{
+        //    Debug.Log("Choice: " + button.name);
 
-            SoundEffectController.GetInstance().PlaySound(SoundEffectController.SND_BUTTON);
+        //    SoundEffectController.GetInstance().PlaySound(SoundEffectController.SND_BUTTON);
 
-            switch (button.name)
-            {
-                case "choice0":
-                    SelectChoice(0);
-                    break;
-                case "choice1":
-                    SelectChoice(1);
-                    break;
-                case "choice2":
-                    SelectChoice(2);
-                    break;
-            }
-        }
+        //    switch (button.name)
+        //    {
+        //        case "choice0":
+        //            SelectChoice(0);
+        //            break;
+        //        case "choice1":
+        //            SelectChoice(1);
+        //            break;
+        //        case "choice2":
+        //            SelectChoice(2);
+        //            break;
+        //    }
+        //}
     }
 }

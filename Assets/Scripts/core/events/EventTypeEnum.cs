@@ -25,5 +25,7 @@ namespace core.events
         AssetsLoadMultipleComplete,
 
         AssetLoadComplete,
+
+        ShowNewConversationNode,
     }
 }

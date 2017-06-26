@@ -17,6 +17,8 @@ namespace core.ui
     {
         public const string PREFAB_SCREEN_PATH = "Prefabs/Screens/";
 
+        public const string SCR_CONVERSATION = "ConversationScreen";
+
         /// <summary>
         /// The prefab for the load file screen where the user can load their
         /// last saved game. 
