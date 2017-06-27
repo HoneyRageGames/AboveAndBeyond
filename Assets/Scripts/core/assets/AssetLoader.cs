@@ -144,6 +144,7 @@ namespace core.assets
                 case AssetLoadType.Conversation:
                     DialogController.GetInstance().LoadDialogFromTO(to);
                     DialogController.GetInstance().PreloadPortraits();
+                    DialogController.GetInstance().PreloadMusic();
                     break;
                 case AssetLoadType.Metadata:
                     MetaDataManager.GetInstance().LoadMetadataFromTO(to);

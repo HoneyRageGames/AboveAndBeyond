@@ -274,6 +274,64 @@ namespace core.dialog
             AssetLoader.GetInstance().LoadAssets(requests);
         }
 
+        public void PreloadMusic()
+        {
+            List<AssetLoadRequestTO> requests = new List<AssetLoadRequestTO>();
+
+            List<string> songsToLoad = new List<string>();
+
+            List<ConversationNode> nodes = currConv.nodes;
+
+            // Iterate through the conversation nodes and check to see if we need to
+            // preload any new songs
+            for (int i = 0, count = nodes.Count; i < count; i++)
+            {
+                ConversationNode node = nodes[i];
+                List<ConversationParamModifier> paramMods = node.paramMods;
+
+                // if there are no param modifiers then no need to preload any music
+                if (paramMods == null)
+                {
+                    continue;
+                }
+
+                // iterate through the param mods and check for songs to preload
+
+                for (int j = 0, jCount = paramMods.Count; j < jCount; j++)
+                {
+                    ConversationParamModifier mod = paramMods[j];
+
+                    // Not a music parameter then skip it
+                    if (!IsMusicParameter(mod.paramName))
+                    {
+                        continue;
+                    }
+
+                    string songName = mod.strValue;
+
+                    // If it's an empty fade out music param then skip
+                    if (string.IsNullOrEmpty(songName))
+                    {
+                        continue;
+                    }
+
+                    // If we already queued it up to load then no need to double add it.
+                    if (songsToLoad.Contains(songName))
+                    {
+                        continue;
+                    }
+
+                    // We got a new song to load so create a new TO
+                    requests.Add(AssetLoadRequestTO.CreateMusicAssetRequest(songName));
+                    songsToLoad.Add(songName);
+                }
+            }
+
+            songsToLoad.Clear();
+            songsToLoad = null;
+
+            AssetLoader.GetInstance().LoadAssets(requests);
+        }
         public Sprite GetPortraitSprite(string name)
         {
             if (portraitSprites.ContainsKey(name))
