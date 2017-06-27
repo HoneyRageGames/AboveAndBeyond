@@ -60,8 +60,6 @@ namespace core.audio
 
         public void Update()
         {
-            return;
-
             if (!isInitialized)
             {
                 return;

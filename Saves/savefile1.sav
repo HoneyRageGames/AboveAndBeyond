@@ -1,7 +1,25 @@
 {
     "PlayerName": "Barrett",
-    "int_scalars": [],
-    "str_scalars": [],
-    "LastSaveDate": 1498440152,
-    "CreationDate": 1498440152
+    "int_scalars": [
+        {
+            "key": "ep01_sc01_01",
+            "val": 0
+        },
+        {
+            "key": "$meow",
+            "val": 5
+        },
+        {
+            "key": "ep01_sc01_02a",
+            "val": 0
+        }
+    ],
+    "str_scalars": [
+        {
+            "key": "ep01",
+            "val": "Onward"
+        }
+    ],
+    "LastSaveDate": 1498519085,
+    "CreationDate": 1498519083
 }

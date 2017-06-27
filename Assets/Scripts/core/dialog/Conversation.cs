@@ -17,8 +17,8 @@ namespace core.dialog
     [Serializable]
     public class Conversation
     {
-        private const string TAG_START = "start";
-        private const string TAG_END = "end";
+        public static string TAG_START = "start";
+        public static string TAG_END = "end";
 
         /// <summary>
         /// The unique identifier for this conversation

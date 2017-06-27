@@ -9,6 +9,8 @@ namespace core.constants
 {
     public class UIConstants
     {
+        public const string CONV_CONTINUE = "Continue...";
+
         public const string LOAD_FILE_TITLE = "Load this file?";
 
         public const string LOAD_FILE_DESC = "Are you sure you want to load this file?";

@@ -5,6 +5,7 @@
 /// <date>June 25th, 2017</date>
 /// ------------------------------------------------------------------------***/
 
+using core.constants;
 using core.dialog;
 using core.events;
 using System.Collections.Generic;
@@ -42,10 +43,23 @@ namespace core.ui.screens
 
             HideChoices();
 
+            // Load the correct image
+            portraitImg.sprite = DialogController.GetInstance().GetPortraitSprite(currNode.spriteName);
+
             // Display the dialog text
             dialogText.text = currNode.displayBody;
 
-            // Iterate through the choices and set up the 
+            // If it's the last node then we can assume there's no choice to be made and 
+            // all that's necessary is a continue
+            if (currNode.tags.Contains(Conversation.TAG_END))
+            {
+                // If it's the end of the conversation or there are no choices continue;
+                choices[0].gameObject.SetActive(true);
+                choicesText[0].text = UIConstants.CONV_CONTINUE;
+                return;
+            }
+
+            // Iterate through the choices and set up the choice buttons
             for (int i = 0; i < currNode.choices.Count; i++)
             {
                 ConversationChoice choice = currNode.choices[i];
@@ -113,6 +127,15 @@ namespace core.ui.screens
             int index = choices.IndexOf(button);
 
             Debug.Log("Choice " + index + " selected");
+
+            // If we're at the end then kill this screen
+            if (currNode.tags.Contains(Conversation.TAG_END))
+            {
+                GameObject.Destroy(this.gameObject);
+                DialogController.GetInstance().EndConversation();
+                return;
+            }
+
             DialogController.GetInstance().SelectChoice(index);
         }
 

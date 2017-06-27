@@ -105,8 +105,6 @@ namespace core.dialog
 
             Debug.Log("Start Conversation: " + currConv.uid);
 
-            //InitializeUI();
-
             GameObject MainMenu = GameObject.Find(GameConstants.UI_MAIN_MENU);
 
             GameObject convScreenObj = UIFactory.CreateScreen(UIFactory.SCR_CONVERSATION, MainMenu);
@@ -114,72 +112,36 @@ namespace core.dialog
 
             currNode = currConv.nodeMap[currConv.startNodeTitle];
 
+            // Set the node to be displayed upon loading to the starting node
             cs.DisplayConversationNode(currNode);
+            ApplyParamModifiers(currNode);
 
             ScreenQueueManager sqm = ScreenQueueManager.GetInstance();
             sqm.ShowScreenNow(convScreenObj);
-
-            //DisplayConversationNode(currConv.startNodeTitle);
         }
 
+        public void EndConversation()
+        {
+            SaveConversationComplete(currConv);
+        }
+
+        /// <summary>
+        /// Select a choice at the given index
+        /// </summary>
+        /// <param name="choiceIndex"></param>
         public void SelectChoice(int choiceIndex)
         {
             ConversationChoice choice = currNode.choices[choiceIndex];
 
+            // Save your choice
             SaveDecision(currNode, choiceIndex);
-
-            Debug.Log("Index Chosen: " + choiceIndex);
-            //DisplayConversationNode(choice.nextNodeTitle);
 
             currNode = currConv.nodeMap[choice.nextNodeTitle];
 
             EventController.GetInstance().FireEvent(EventTypeEnum.ShowNewConversationNode, currNode);
-        }
 
-        private void DisplayConversationNode(string titleID)
-        {
-            currNode = currConv.nodeMap[titleID];
-
-            Debug.Log(currNode.displayBody);
-
-            //bodyTextField.text = currNode.displayBody;
-            //portrait.sprite = portraitSprites[currNode.spriteName];
-
-            DisplayChoices(currNode);
-
+            // Apply the parameter modifiers upon viewing the choice
             ApplyParamModifiers(currNode);
-        }
-
-        private void DisplayChoices(ConversationNode node)
-        {
-            HideChoices();
-            if (node.choices == null || node.choices.Count < 1)
-            {
-                Debug.Log("End Conversation.");
-                SaveConversationComplete(currConv);
-                return;
-            }
-
-            int count = node.choices.Count;
-
-            StringBuilder sb = new StringBuilder();
-
-            if (count > 1)
-            {
-                sb.Append("Choose:  \n");
-            }
-
-            for (int i = 0; i < count; i++)
-            {
-                ConversationChoice choice = node.choices[i];
-
-                sb.Append(i + "): " + choice.text);
-                sb.Append("\n");
-
-                //ShowChoice(choice, i);
-            }
-
-            Debug.Log(sb.ToString());
         }
 
         /// <summary>
@@ -188,7 +150,14 @@ namespace core.dialog
         /// <param name="conv"></param>
         private void SaveConversationComplete(Conversation conv)
         {
-            PlayerAccountManager.GetInstance().GetPlayer().SetValue<int>(conv.startNodeTitle, 1);
+            ConversationNode startNode = conv.nodeMap[conv.startNodeTitle];
+
+            // Flag that whole conversation tree as complete
+            PlayerAccountManager.GetInstance().GetPlayer().SetValue<int>(startNode.treeID, 1);
+
+            // Auto save the player
+            PlayerAccountManager pm = PlayerAccountManager.GetInstance();
+            pm.AutoSavePlayerToCurrentSlot();
         }
 
         private void SaveDecision(ConversationNode node, int choice)
@@ -272,23 +241,6 @@ namespace core.dialog
             return false;
         }
 
-        //private void InitializeUI()
-        //{
-        //    GameObject textObj = GameObject.Find("bodyText");
-        //    bodyTextField = textObj.GetComponent<Text>();
-
-        //    GameObject imgObj = GameObject.Find("portrait");
-        //    portrait = imgObj.GetComponent<Image>();
-
-        //    GameObject animPortraitObj = GameObject.Find("animPortrait");
-        //    animPortrait = animPortraitObj.GetComponent<Animator>();
-
-        //    RegisterChoiceButtonListeners();
-
-        //    // Set the animating portrait to the test sprite
-        //    animPortrait.runtimeAnimatorController = Resources.Load("Anims/girl_0_ac") as RuntimeAnimatorController;
-        //}
-
         public void PreloadPortraits()
         {
             portraitSprites.Clear();
@@ -322,6 +274,16 @@ namespace core.dialog
             AssetLoader.GetInstance().LoadAssets(requests);
         }
 
+        public Sprite GetPortraitSprite(string name)
+        {
+            if (portraitSprites.ContainsKey(name))
+            {
+                return portraitSprites[name];
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// Upon the sprite sheet being loaded, load all the portrait sprites into
         /// </summary>
@@ -351,26 +313,6 @@ namespace core.dialog
         }
 
         /// <summary>
-        /// Registers all the button listeners for the choice UI with the UIInputController
-        /// </summary>
-        //private void RegisterChoiceButtonListeners()
-        //{
-        //    if (buttonGameObjs.Count > 0)
-        //    {
-        //        return;
-        //    }
-
-        //    for (int i = 0; i < 3; i++)
-        //    {
-        //        string btnName = "choice" + i;
-
-        //        UIInputController.GetInstance().RegisterButtonListener(btnName, OnChoiceClicked);
-        //        GameObject gameObj = GameObject.Find(btnName);
-        //        buttonGameObjs.Add(gameObj);
-        //    }
-        //}
-
-        /// <summary>
         /// Visibly hides all of the choice buttons.
         /// </summary>
         private void HideChoices()
@@ -392,28 +334,5 @@ namespace core.dialog
             Text textField = btn.GetComponentInChildren<Text>();
             textField.text = choice.text;
         }
-
-        /// <summary>
-        /// Handle selecting of conversation choice after the user clicks the choice button
-        /// </summary>
-        //public void OnChoiceClicked(Button button)
-        //{
-        //    Debug.Log("Choice: " + button.name);
-
-        //    SoundEffectController.GetInstance().PlaySound(SoundEffectController.SND_BUTTON);
-
-        //    switch (button.name)
-        //    {
-        //        case "choice0":
-        //            SelectChoice(0);
-        //            break;
-        //        case "choice1":
-        //            SelectChoice(1);
-        //            break;
-        //        case "choice2":
-        //            SelectChoice(2);
-        //            break;
-        //    }
-        //}
     }
 }
