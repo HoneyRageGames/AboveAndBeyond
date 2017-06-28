@@ -28,14 +28,11 @@ namespace core.ui.screens
         private List<Button> choices;
         private List<Text> choicesText;
 
-        private ConversationNode currNode;
-
         private bool initialized;
 
         public void DisplayConversationNode(ConversationNode node)
         {
-            currNode = node;
-
+            ConversationNode currNode = DialogController.GetInstance().currNode;
             if (!initialized)
             {
                 return;
@@ -102,24 +99,14 @@ namespace core.ui.screens
                     });
             }
 
-            // Register to listen for events from the DialogController
-            EventController.GetInstance().RegisterForEvent(EventTypeEnum.ShowNewConversationNode, OnNewConversationNode);
-
             initialized = true;
 
-            DisplayConversationNode(currNode);
+            DisplayConversationNode(DialogController.GetInstance().currNode);
         }
 
         public override void OnDestroy()
         {
-            EventController.GetInstance().UnregisterForEvent(EventTypeEnum.ShowNewConversationNode, OnNewConversationNode);
             base.OnDestroy();
-        }
-
-        private void OnNewConversationNode(EventTypeEnum type, object obj)
-        {
-            currNode = (ConversationNode)obj;
-            DisplayConversationNode(currNode);
         }
 
         private void OnChoiceSelected(Button button)
@@ -128,15 +115,19 @@ namespace core.ui.screens
 
             Debug.Log("Choice " + index + " selected");
 
+            DialogController dc = DialogController.GetInstance();
+            
             // If we're at the end then kill this screen
-            if (currNode.tags.Contains(Conversation.TAG_END))
+            if (dc.currNode.tags.Contains(Conversation.TAG_END))
             {
                 GameObject.Destroy(this.gameObject);
-                DialogController.GetInstance().EndConversation();
+                dc.EndConversation();
                 return;
             }
 
-            DialogController.GetInstance().SelectChoice(index);
+            dc.SelectChoice(index);
+            DisplayConversationNode(dc.currNode);
+
         }
 
         /// <summary>

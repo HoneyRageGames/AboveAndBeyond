@@ -27,7 +27,7 @@ namespace core.dialog
         private static DialogController instance;
 
         private Conversation currConv;
-        private ConversationNode currNode;
+        public ConversationNode currNode { get; private set; }
 
         //private Text bodyTextField;
         //private Image portrait;
@@ -94,7 +94,9 @@ namespace core.dialog
             currConv = conv;
         }
 
-
+        /// <summary>
+        /// Begins a conversation and opens up the ConversationScreen.
+        /// </summary>
         public void StartConversation()
         {
             if (currConv == null)
@@ -113,7 +115,6 @@ namespace core.dialog
             currNode = currConv.nodeMap[currConv.startNodeTitle];
 
             // Set the node to be displayed upon loading to the starting node
-            cs.DisplayConversationNode(currNode);
             ApplyParamModifiers(currNode);
 
             ScreenQueueManager sqm = ScreenQueueManager.GetInstance();
