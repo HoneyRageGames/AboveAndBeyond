@@ -19,7 +19,7 @@ namespace core.dialog
     /// NOTE: Make sure the param mods are before the choices
     /// </summary>
     [Serializable]
-    public class ConversationNode
+    public class ConversationNode : ISerializationCallbackReceiver
     {
         private const string CHOICE_DELIM = "[[";
         private const char CHOICE_ELEMENT_DELIM = '|';
@@ -81,7 +81,15 @@ namespace core.dialog
         {
         }
 
-        public void Process()
+        public void OnBeforeSerialize()
+        {
+            // nothing need in preserialization
+        }
+
+        /// <summary>
+        /// After serializing the JSON we process the data for convenient usage
+        /// </summary>
+        public void OnAfterDeserialize()
         {
             ProcessTags();
 
@@ -110,16 +118,22 @@ namespace core.dialog
             tagArray = tags.Split(' ');
         }
 
+        /// <summary>
+        /// Iterates through the raw string and figures out if there are any choices available
+        /// for the user to select
+        /// </summary>
         private void ProcessChoices()
         {
             string[] choiceSplit = body.Split(CHOICE_DELIM.ToCharArray());
 
             displayBody = choiceSplit[0];
 
+            // No choices then no need to process anything
             if (choiceSplit.Length < 2)
             {
                 return;
             }
+
             choices = new List<ConversationChoice>();
 
             // Iterate through the choice elements and attempt to parse them.
@@ -149,12 +163,18 @@ namespace core.dialog
             }
         }
 
+        /// <summary>
+        /// Iterate through the space delimited string to figure out what 
+        /// parameter modifiers need to be applied after viewing a conversation node
+        /// </summary>
         private void ProcessParams()
         {
+            // Split it up
             string[] paramSplit = displayBody.Split(PARAM_DELIM.ToCharArray());
 
             displayBody = paramSplit[0];
 
+            // If we don't enough pieces that means we don't have have a param mod
             if (paramSplit.Length < 2)
             {
                 return;
@@ -162,6 +182,7 @@ namespace core.dialog
 
             paramMods = new List<ConversationParamModifier>();
 
+            // Iterate through the pieces try to parse the param mods
             for (int i = 1, count = paramSplit.Length; i < count; i++)
             {
                 string rawPMod = paramSplit[i];

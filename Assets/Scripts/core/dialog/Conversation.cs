@@ -71,7 +71,6 @@ namespace core.dialog
             {
                 ConversationNode node = nodes[i];
                 string key = node.title;
-                node.Process();
 
                 // Add the node to the map of nodes by title
                 nodeMap[key] = node;
