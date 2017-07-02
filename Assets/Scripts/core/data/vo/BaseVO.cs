@@ -19,10 +19,5 @@ namespace core.data.vo
         /// The unique identifier
         /// </summary>
         public string uid;
-
-        public virtual void Process()
-        {
-
-        }
     }
 }

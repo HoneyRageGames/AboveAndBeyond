@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace core.data.vo
 {
@@ -14,7 +15,7 @@ namespace core.data.vo
     /// The value object data for a unit.
     /// </summary>
     [Serializable]
-    public class UnitVO : BaseVO
+    public class UnitVO : BaseVO, ISerializationCallbackReceiver
     {
         /// <summary>
         /// The raw type string. Should enum this later.
@@ -76,8 +77,7 @@ namespace core.data.vo
         /// </summary>
         public string[] weaponsUIDs;
 
-
-        public override void Process()
+        public void OnAfterDeserialize()
         {
             // Only if we have something for the equipmentList do we need to add anything;
             if (!string.IsNullOrEmpty(equipmentList))
@@ -90,8 +90,11 @@ namespace core.data.vo
             {
                 weaponsUIDs = weaponsList.Split(' ');
             }
+        }
 
-            base.Process();
+        public void OnBeforeSerialize()
+        {
+            // Nothing to do before serialization
         }
     }
 }

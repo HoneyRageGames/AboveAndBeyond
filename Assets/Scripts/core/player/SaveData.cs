@@ -73,7 +73,6 @@ namespace core.player
 
         public void OnAfterDeserialize()
         {
-            Debug.Log("OnAfterDeserialize");
             Init();
         }
 
