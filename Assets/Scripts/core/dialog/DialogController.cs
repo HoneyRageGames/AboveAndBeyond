@@ -24,6 +24,12 @@ namespace core.dialog
     /// </summary>
     public class DialogController
     {
+        /// <summary>
+        /// The parameter modifier that indicates that we want to
+        /// open a screen. 
+        /// </summary>
+        private const string PMOD_SCREEN_QUEUE = "ScreenQueue";
+
         private static DialogController instance;
 
         private Conversation currConv;
@@ -194,6 +200,11 @@ namespace core.dialog
                     continue;
                 }
 
+                if (IsScreenParameter(mod.paramName))
+                {
+
+                }
+
                 // Set the string or integer to the given value.
                 if (mod.action == ConversationParamModifier.ModifierActionType.Set)
                 {
@@ -234,6 +245,20 @@ namespace core.dialog
                 paramName == MusicController.DIALOG_PARAM_MUSIC_FADEOUT)
             {
                 Debug.Log("Conversation Song: " + paramName);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Determines if we have a screen specific parametere modifier that
+        /// is meant to trigger.
+        /// </summary>
+        private bool IsScreenParameter(string paramName)
+        {
+            if (paramName == PMOD_SCREEN_QUEUE)
+            {
                 return true;
             }
 
