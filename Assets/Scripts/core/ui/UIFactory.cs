@@ -106,7 +106,6 @@ namespace core.ui
                     //   but a const field would have only IsLiteral equal to true
                     if (fi.IsLiteral && !fi.IsInitOnly)
                     {
-                        PropertyInfo pi = type.GetProperty(fi.Name);
                         string constValue = fi.GetValue(type) as string;
 
                         if (!string.IsNullOrEmpty(constValue))

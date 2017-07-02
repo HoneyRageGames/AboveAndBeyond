@@ -63,7 +63,7 @@
 		"title": "ep01_sc01_05a",
 		"treeID": "tr_ep01_sc01",
 		"tags": "ep01 end",
-		"body": "That sounds great Mr. Harris, let's see those rosters.\n\n<<MusicFadeOut = \"\">>",
+		"body": "That sounds great Mr. Harris, let's see those rosters.\n\n<<MusicFadeOut = \"\">>\n<<ScreenQueue = \"ConfirmScreen\">>",
 		"image": "fire_emblem/girl_0_0",
 		"position": {
 			"x": -1368,

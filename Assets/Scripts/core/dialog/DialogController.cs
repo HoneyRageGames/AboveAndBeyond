@@ -12,6 +12,7 @@ using core.events;
 using core.player;
 using core.ui;
 using core.ui.screens;
+using core.util;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -114,8 +115,6 @@ namespace core.dialog
             GameObject MainMenu = GameObject.Find(GameConstants.UI_MAIN_MENU);
 
             GameObject convScreenObj = UIFactory.CreateScreen(UIFactory.SCR_CONVERSATION, MainMenu);
-            ConversationScreen cs = convScreenObj.GetComponent<ConversationScreen>();
-
             currNode = currConv.nodeMap[currConv.startNodeTitle];
 
             // Set the node to be displayed upon loading to the starting node
@@ -202,7 +201,13 @@ namespace core.dialog
 
                 if (IsScreenParameter(mod.paramName))
                 {
-
+                    if (mod.paramName == PMOD_SCREEN_QUEUE)
+                    {
+                        GameObject MainMenu = GameObject.Find(GameConstants.UI_MAIN_MENU);
+                        GameObject screen = UIFactory.CreateScreen(mod.strValue, MainMenu);
+                        ScreenQueueManager.GetInstance().QueueScreen(screen);
+                    }
+                    continue;
                 }
 
                 // Set the string or integer to the given value.
