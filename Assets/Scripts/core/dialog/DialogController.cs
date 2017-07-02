@@ -69,7 +69,6 @@ namespace core.dialog
 
             Conversation conv = JsonUtility.FromJson<Conversation>(sb.ToString());
             conv.uid = textAsset.name;
-            conv.Process();
 
             // Set this new conversation to the current.
             currConv = conv;
@@ -88,7 +87,6 @@ namespace core.dialog
 
             Conversation conv = JsonUtility.FromJson<Conversation>(sb.ToString());
             conv.uid = textAsset.name;
-            conv.Process();
 
             // Set this new conversation to the current.
             currConv = conv;

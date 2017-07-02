@@ -15,7 +15,7 @@ namespace core.dialog
     /// Contains the raw nodes for the full conversation.
     /// </summary>
     [Serializable]
-    public class Conversation
+    public class Conversation : ISerializationCallbackReceiver
     {
         public static string TAG_START = "start";
         public static string TAG_END = "end";
@@ -52,12 +52,11 @@ namespace core.dialog
             nodesByTag = new Dictionary<string, List<ConversationNode>>();
         }
 
-        public void Process()
+        public void OnAfterDeserialize()
         {
             if (alreadyProcessed)
             {
                 Debug.LogError("Already Processed cannot process twice: " + uid);
-
                 return;
             }
 
@@ -84,6 +83,11 @@ namespace core.dialog
             // Flag this conversation as processed so we don't go through the 
             // expensive task of processing all this data.
             alreadyProcessed = true;
+        }
+
+        public void OnBeforeSerialize()
+        {
+            // Nothing to do prior to serialization
         }
 
         /// <summary>
