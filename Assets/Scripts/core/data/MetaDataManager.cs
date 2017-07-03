@@ -40,8 +40,6 @@ namespace core.data
 
             map = JsonUtility.FromJson<MetadataMap>(textAsset.text);
 
-            map.Process();
-
             // Debug out all the units parsed into the metadata map
             Debug.Log(map.ToString());
         }

@@ -17,7 +17,7 @@ namespace core.data
     /// The map containing all of the metadata for the game.
     /// </summary>
     [Serializable]
-    public class MetadataMap
+    public class MetadataMap : ISerializationCallbackReceiver
     {
         /// <summary>
         /// A list of VOs for the unit data.
@@ -38,11 +38,16 @@ namespace core.data
             metadata = new Dictionary<object, Dictionary<string, object>>();
         }
 
+        public void OnBeforeSerialize()
+        {
+            // Nothing to do prior to serialization
+        }
+
         /// <summary>
         /// Processes the lists of VOs and adds them to the mapping by class type
         /// and then from uid to VO.
         /// </summary>
-        public void Process()
+        public void OnAfterDeserialize()
         {
             SaveListToMetadataMap<UnitVO>(Units);
             SaveListToMetadataMap<EquipmentVO>(Equipment);

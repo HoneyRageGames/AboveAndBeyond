@@ -13,8 +13,7 @@ namespace core.dialog
 {
     /// <summary>
     /// Contains a single node of a conversation. Keep things Serializable
-    /// to allow use with JSONUtility. Must run Process() to make sure all
-    /// data fields are initialized.
+    /// to allow use with JSONUtility.
     /// 
     /// NOTE: Make sure the param mods are before the choices
     /// </summary>
