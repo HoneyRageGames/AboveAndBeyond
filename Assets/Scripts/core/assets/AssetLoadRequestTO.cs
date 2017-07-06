@@ -11,11 +11,12 @@ namespace core.assets
 {
     public enum AssetLoadType
     {
-        Metadata,
-        SoundEfect,
-        Music,
         Conversation,
+        MapData,
+        Metadata,
+        Music,
         SaveData,
+        SoundEfect,
         SpriteSheet,
     }
 
@@ -44,6 +45,14 @@ namespace core.assets
             AssetLoadRequestTO to = new AssetLoadRequestTO();
             to.assetLoadType = AssetLoadType.Conversation;
             to.path = GameConstants.CONVERSATION_LOC + fileName;
+            return to;
+        }
+
+        public static AssetLoadRequestTO CreateMapDataRequest(string fileName)
+        {
+            AssetLoadRequestTO to = new AssetLoadRequestTO();
+            to.assetLoadType = AssetLoadType.MapData;
+            to.path = GameConstants.MAPDATA_LOC + fileName;
             return to;
         }
 

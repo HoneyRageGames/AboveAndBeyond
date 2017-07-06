@@ -57,6 +57,9 @@ namespace core.ui.screens
             AssetLoadRequestTO ep1 = AssetLoadRequestTO.CreateConversationRequest(GameConstants.EP01);
             requests.Add(ep1);
 
+            // load the map csv file.
+            AssetLoadRequestTO map = AssetLoadRequestTO.CreateMapDataRequest(GameConstants.MAP_1);
+            requests.Add(map);
 
             EventController.GetInstance().RegisterForEvent(
                 EventTypeEnum.AssetsLoadMultipleComplete, OnLoadCompleteEvent);

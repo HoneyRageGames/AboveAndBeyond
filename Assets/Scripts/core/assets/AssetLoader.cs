@@ -146,6 +146,9 @@ namespace core.assets
                     DialogController.GetInstance().PreloadPortraits();
                     DialogController.GetInstance().PreloadMusic();
                     break;
+                case AssetLoadType.MapData:
+                    MapData md = MapData.FromTO(to);
+                    break;
                 case AssetLoadType.Metadata:
                     MetaDataManager.GetInstance().LoadMetadataFromTO(to);
                     break;

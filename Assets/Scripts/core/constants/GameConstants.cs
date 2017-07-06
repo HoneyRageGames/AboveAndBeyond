@@ -12,6 +12,9 @@ namespace core.constants
         public const string CONVERSATION_LOC = "JSON/Episodes/";
         public const string EP01 = "ep01";
 
+        public const string MAPDATA_LOC = "MapData/";
+        public const string MAP_1 = "spacemap1";
+
         public const string METADATA_LOC = "JSON/Metadata/";
         public const string METADATA_BASE_FILE = "metadata";
 
