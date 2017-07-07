@@ -9,6 +9,7 @@ using core.audio;
 using core.data;
 using core.dialog;
 using core.events;
+using core.tilesys;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -148,6 +149,7 @@ namespace core.assets
                     break;
                 case AssetLoadType.MapData:
                     MapData md = MapData.FromTO(to);
+                    MapController.GetInstance().LoadMapData(md);
                     break;
                 case AssetLoadType.Metadata:
                     MetaDataManager.GetInstance().LoadMetadataFromTO(to);

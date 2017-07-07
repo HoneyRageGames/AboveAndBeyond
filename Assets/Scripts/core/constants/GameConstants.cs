@@ -39,5 +39,10 @@ namespace core.constants
         public const int NUM_SAVE_SLOTS = 4;
 
         public const string UI_MAIN_MENU = "MainMenu";
+
+        /// <summary>
+        /// The default material for a map
+        /// </summary>
+        public const string MAT_DEFAULT_MAP_TILES = "Materials/spacetiles";
     }
 }
