@@ -31,6 +31,13 @@
             "equipmentList": "afterburners"
         }
     ],
+    "MapInfo": [
+        {
+            "uid": "map01",
+            "tileMapCSV": "spacemap1",
+            "material": "spacetiles"
+        }
+    ],
     "Equipment": [
         {
             "uid": "javelin",
@@ -51,7 +58,7 @@
             "type": "weapon",
             "subtype": "cannon",
             "baseDamage": 25,
-            "hitChance": 0.65,
+            "hitChance": 0.75,
             "dodgeChance": 0,
             "numShotsPerAttack": 3,
             "damageBonus": 0,
@@ -108,7 +115,8 @@
             "uid": "sherman",
             "damageReduction": 1,
             "dodgeChance": 0.1,
-            "hitChance": 0.05
+            "hitChance": 0.05,
+            "skills": "shermanation"
         },
         {
             "uid": "defaultEnemy",
@@ -117,6 +125,16 @@
             "hitChance": 0
         }
     ],
-    "Skills": [],
+    "Skills": [
+        {
+            "uid": "shermanation",
+            "numUses": 2,
+            "numTurns": 3,
+            "damageBonus": 1,
+            "damageReduction": 0,
+            "hitChance": 0,
+            "dodgeChance": 0
+        }
+    ],
     "ScreenInfo": []
 }

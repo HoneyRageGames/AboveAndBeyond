@@ -29,7 +29,15 @@ namespace core.data
         /// </summary>
         public List<EquipmentVO> Equipment;
 
+        /// <summary>
+        /// A list of VOs for character data
+        /// </summary>
         public List<CharacterVO> Characters;
+
+        /// <summary>
+        /// Data for each map
+        /// </summary>
+        public List<MapInfoVO> MapInfo;
 
         public Dictionary<object, Dictionary<string, object>> metadata;
 
@@ -52,6 +60,7 @@ namespace core.data
             SaveListToMetadataMap<UnitVO>(Units);
             SaveListToMetadataMap<EquipmentVO>(Equipment);
             SaveListToMetadataMap<CharacterVO>(Characters);
+            SaveListToMetadataMap<MapInfoVO>(MapInfo);
 
             Debug.Log("Done Processing");
         }
