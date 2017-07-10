@@ -8,8 +8,12 @@
 //using core.debug;
 //using core.tilesys.pathing;
 //using core.units;
+using core.assets;
 using core.data;
+using core.data.vo;
+using core.events;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
@@ -71,6 +75,28 @@ namespace core.tilesys
             return instance;
         }
 
+        public void LoadMapByUID(string uid)
+        {
+            MapInfoVO vo = MetaDataManager.GetInstance().Map.GetVO<MapInfoVO>(uid);
+
+            List<AssetLoadRequestTO> requests = new List<AssetLoadRequestTO>();
+            AssetLoadRequestTO mapCSV = AssetLoadRequestTO.CreateMapDataRequest(vo.tileMapCSV);
+            requests.Add(mapCSV);
+            
+            EventController.GetInstance().RegisterForEvent(
+                EventTypeEnum.AssetsLoadMultipleComplete, OnLoadCompleteEvent);
+
+            AssetLoader.GetInstance().LoadAssets(requests);
+        }
+
+        private void OnLoadCompleteEvent(EventTypeEnum type, object obj)
+        {
+            EventController.GetInstance().UnregisterForEvent(
+                EventTypeEnum.AssetsLoadMultipleComplete, OnLoadCompleteEvent);
+
+
+        }
+
         public void LoadMapData(MapData mapData)
         {
             currentMap = mapData;
@@ -89,6 +115,9 @@ namespace core.tilesys
             occupiedTileMap = new int[currentMap.GetWidth(), currentMap.GetHeight()];
 
             //pathingController.search.GenerateMapGraph(currentMap);
+
+            // Hide it by default
+            mapMesh.SetActive(false);
         }
 
         public void PrintOutOccupiedTiles()

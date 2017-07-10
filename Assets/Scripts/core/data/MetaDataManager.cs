@@ -17,7 +17,7 @@ namespace core.data
     {
         private static MetaDataManager instance;
 
-        private MetadataMap map;
+        public MetadataMap Map { get; private set; }
 
         private MetaDataManager()
         {
@@ -38,10 +38,10 @@ namespace core.data
         {
             TextAsset textAsset = to.loadedObject as TextAsset;
 
-            map = JsonUtility.FromJson<MetadataMap>(textAsset.text);
+            Map = JsonUtility.FromJson<MetadataMap>(textAsset.text);
 
             // Debug out all the units parsed into the metadata map
-            Debug.Log(map.ToString());
+            Debug.Log(Map.ToString());
         }
     }
 }

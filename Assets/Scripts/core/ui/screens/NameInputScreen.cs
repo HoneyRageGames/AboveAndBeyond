@@ -10,6 +10,7 @@ using core.constants;
 using core.dialog;
 using core.events;
 using core.player;
+using core.tilesys;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -58,8 +59,8 @@ namespace core.ui.screens
             requests.Add(ep1);
 
             // load the map csv file.
-            AssetLoadRequestTO map = AssetLoadRequestTO.CreateMapDataRequest(GameConstants.MAP_1);
-            requests.Add(map);
+            //AssetLoadRequestTO map = AssetLoadRequestTO.CreateMapDataRequest(GameConstants.MAP_1);
+            //requests.Add(map);
 
             EventController.GetInstance().RegisterForEvent(
                 EventTypeEnum.AssetsLoadMultipleComplete, OnLoadCompleteEvent);
@@ -75,6 +76,8 @@ namespace core.ui.screens
             ScreenQueueManager.GetInstance().ClearQueueAndDestroyAllScreens();
 
             DialogController.GetInstance().StartConversation();
+
+            MapController.GetInstance().LoadMapByUID("map01");
         }
 
     }
