@@ -123,9 +123,10 @@ namespace core.assets
 
             if (loaded >= expected)
             {
+                loaded = expected = 0;
+
                 // FIre off the event to notify others that we've completed our multi-load
                 EventController.GetInstance().FireEvent(EventTypeEnum.AssetsLoadMultipleComplete, loaded);
-                loaded = expected = 0;
 
                 DateTime endDate = DateTime.Now;
 
@@ -150,6 +151,9 @@ namespace core.assets
                 case AssetLoadType.MapData:
                     MapData md = MapData.FromTO(to);
                     MapController.GetInstance().LoadMapData(md);
+                    break;
+                case AssetLoadType.MapMaterial:
+                    MapController.GetInstance().LoadCurrMapMaterialFromTO(to);
                     break;
                 case AssetLoadType.Metadata:
                     MetaDataManager.GetInstance().LoadMetadataFromTO(to);

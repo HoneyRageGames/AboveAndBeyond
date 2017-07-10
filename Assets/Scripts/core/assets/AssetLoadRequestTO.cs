@@ -13,6 +13,7 @@ namespace core.assets
     {
         Conversation,
         MapData,
+        MapMaterial,
         Metadata,
         Music,
         SaveData,
@@ -53,6 +54,14 @@ namespace core.assets
             AssetLoadRequestTO to = new AssetLoadRequestTO();
             to.assetLoadType = AssetLoadType.MapData;
             to.path = GameConstants.MAPDATA_LOC + fileName;
+            return to;
+        }
+
+        public static AssetLoadRequestTO CreateMapMaterialRequest(string fileName)
+        {
+            AssetLoadRequestTO to = new AssetLoadRequestTO();
+            to.assetLoadType = AssetLoadType.MapMaterial;
+            to.path = GameConstants.MATERIAL_LOC + fileName;
             return to;
         }
 

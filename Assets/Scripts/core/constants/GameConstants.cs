@@ -15,6 +15,8 @@ namespace core.constants
         public const string MAPDATA_LOC = "MapData/";
         public const string MAP_1 = "spacemap1";
 
+        public const string MATERIAL_LOC = "Materials/";
+
         public const string METADATA_LOC = "JSON/Metadata/";
         public const string METADATA_BASE_FILE = "metadata";
 

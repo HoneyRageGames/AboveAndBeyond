@@ -12,18 +12,6 @@
         {
             "key": "ep01_sc01_02a",
             "val": 0
-        },
-        {
-            "key": "ep01_sc01_03",
-            "val": 0
-        },
-        {
-            "key": "ep01_sc01_04",
-            "val": 1
-        },
-        {
-            "key": "tr_ep01_sc01",
-            "val": 1
         }
     ],
     "str_scalars": [
@@ -32,6 +20,6 @@
             "val": "Onward"
         }
     ],
-    "LastSaveDate": 1499642037,
-    "CreationDate": 1499642027
+    "LastSaveDate": 1499644489,
+    "CreationDate": 1499644487
 }

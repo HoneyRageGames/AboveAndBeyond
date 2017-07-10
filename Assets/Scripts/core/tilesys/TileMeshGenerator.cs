@@ -92,8 +92,8 @@ namespace core.tilesys
             mesh.vertices = vertices;
             mesh.triangles = triangles;
             meshFilter.mesh = mesh;
-            
-            Material mat = Resources.Load<Material>(GameConstants.MAT_DEFAULT_MAP_TILES);
+
+            Material mat = MapController.GetInstance().currMapMaterial;
 
             MeshRenderer mr = mapMesh.AddComponent<MeshRenderer>();
             mr.material = mat;

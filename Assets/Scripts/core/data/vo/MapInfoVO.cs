@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections;
-/// MapInfoVO.cs
+﻿/// MapInfoVO.cs
 /// 
 /// <company>Honey Rage Games</company>
 /// <date>July 9th, 2017</date>
-/// ------------------------------------------------------------------------***/
+/// ------------------------------------------------------------------------
+
+using System;
 
 namespace core.data.vo
 {

@@ -42,6 +42,8 @@ namespace core.tilesys
         /// </summary>
         public MapData currentMap { get; private set; } 
 
+        public Material currMapMaterial { get; private set; }
+
         /// <summary>
         /// The game object that contains the textured mesh of the map
         /// </summary>
@@ -82,6 +84,9 @@ namespace core.tilesys
             List<AssetLoadRequestTO> requests = new List<AssetLoadRequestTO>();
             AssetLoadRequestTO mapCSV = AssetLoadRequestTO.CreateMapDataRequest(vo.tileMapCSV);
             requests.Add(mapCSV);
+
+            AssetLoadRequestTO mat = AssetLoadRequestTO.CreateMapMaterialRequest(vo.material);
+            requests.Add(mat);
             
             EventController.GetInstance().RegisterForEvent(
                 EventTypeEnum.AssetsLoadMultipleComplete, OnLoadCompleteEvent);
@@ -89,23 +94,17 @@ namespace core.tilesys
             AssetLoader.GetInstance().LoadAssets(requests);
         }
 
+        /// <summary>
+        /// Upon loading up the map data and the necessary 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="obj"></param>
         private void OnLoadCompleteEvent(EventTypeEnum type, object obj)
         {
             EventController.GetInstance().UnregisterForEvent(
                 EventTypeEnum.AssetsLoadMultipleComplete, OnLoadCompleteEvent);
 
-
-        }
-
-        public void LoadMapData(MapData mapData)
-        {
-            currentMap = mapData;
-
-            // Setup the bounds of the world
-            CAMERA_BOUND.x = -1;
-            CAMERA_BOUND.y = -1;
-            CAMERA_BOUND.width = currentMap.GetWidth() + 1;
-            CAMERA_BOUND.height = currentMap.GetHeight() + 1;
+            Debug.Log("Map Assets Done!");
 
             // Generate the tile mesh
             mapMesh = TileMeshGenerator.GetInstance().GenerateMesh(currentMap);
@@ -118,6 +117,22 @@ namespace core.tilesys
 
             // Hide it by default
             mapMesh.SetActive(false);
+        }
+
+        public void LoadMapData(MapData mapData)
+        {
+            currentMap = mapData;
+
+            // Setup the bounds of the world
+            CAMERA_BOUND.x = -1;
+            CAMERA_BOUND.y = -1;
+            CAMERA_BOUND.width = currentMap.GetWidth() + 1;
+            CAMERA_BOUND.height = currentMap.GetHeight() + 1;
+        }
+
+        public void LoadCurrMapMaterialFromTO(AssetLoadRequestTO to)
+        {
+            currMapMaterial = (Material)to.loadedObject;
         }
 
         public void PrintOutOccupiedTiles()
