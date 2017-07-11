@@ -76,8 +76,6 @@ namespace core.ui.screens
             ScreenQueueManager.GetInstance().ClearQueueAndDestroyAllScreens();
 
             DialogController.GetInstance().StartConversation();
-
-            MapController.GetInstance().LoadMapByUID("map01");
         }
 
     }

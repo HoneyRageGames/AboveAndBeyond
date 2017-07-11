@@ -77,6 +77,16 @@ namespace core.tilesys
             return instance;
         }
 
+        public void ShowMap()
+        {
+            if (mapMesh == null)
+            {
+                return;
+            }
+
+            mapMesh.SetActive(true);
+        }
+
         public void LoadMapByUID(string uid)
         {
             MapInfoVO vo = MetaDataManager.GetInstance().Map.GetVO<MapInfoVO>(uid);

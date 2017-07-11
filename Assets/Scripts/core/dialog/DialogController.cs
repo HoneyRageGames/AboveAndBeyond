@@ -10,6 +10,7 @@ using core.audio;
 using core.constants;
 using core.events;
 using core.player;
+using core.tilesys;
 using core.ui;
 using core.ui.screens;
 using core.util;
@@ -30,6 +31,9 @@ namespace core.dialog
         /// open a screen. 
         /// </summary>
         private const string PMOD_SCREEN_QUEUE = "ScreenQueue";
+
+        private const string PMOD_MAP_PRELOAD = "MapPreload";
+        private const string PMOD_MAP_SHOW = "MapShow";
 
         private static DialogController instance;
 
@@ -184,7 +188,7 @@ namespace core.dialog
                 ConversationParamModifier mod = node.paramMods[i];
 
                 // If it's a music parameter then play the transition
-                if (IsMusicParameter(mod.paramName))
+                if (ParameterModifierUtils.IsMusicParameter(mod.paramName))
                 {
                     if (mod.paramName == MusicController.DIALOG_PARAM_MUSIC_FADEIN)
                     {
@@ -199,7 +203,7 @@ namespace core.dialog
                     continue;
                 }
 
-                if (IsScreenParameter(mod.paramName))
+                if (ParameterModifierUtils.IsScreenParameter(mod.paramName))
                 {
                     if (mod.paramName == PMOD_SCREEN_QUEUE)
                     {
@@ -207,6 +211,22 @@ namespace core.dialog
                         GameObject screen = UIFactory.CreateScreen(mod.strValue, MainMenu);
                         ScreenQueueManager.GetInstance().QueueScreen(screen);
                     }
+                    continue;
+                }
+
+                if (ParameterModifierUtils.IsMapParameter(mod.paramName))
+                {
+                    // Preload a map
+                    if (mod.paramName == PMOD_MAP_PRELOAD)
+                    {
+                        MapController.GetInstance().LoadMapByUID(mod.strValue);
+                    }
+
+                    if (mod.paramName == PMOD_MAP_SHOW)
+                    {
+                        MapController.GetInstance().ShowMap();
+                    }
+
                     continue;
                 }
 
@@ -239,35 +259,6 @@ namespace core.dialog
 
             // Save the player progress at this point. 
             pm.AutoSavePlayerToCurrentSlot();
-        }
-
-        /// <summary>
-        /// Is this conversation parameter modifier meant to trigger music?
-        /// </summary>
-        private bool IsMusicParameter(string paramName)
-        {
-            if (paramName == MusicController.DIALOG_PARAM_MUSIC_FADEIN ||
-                paramName == MusicController.DIALOG_PARAM_MUSIC_FADEOUT)
-            {
-                Debug.Log("Conversation Song: " + paramName);
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Determines if we have a screen specific parametere modifier that
-        /// is meant to trigger.
-        /// </summary>
-        private bool IsScreenParameter(string paramName)
-        {
-            if (paramName == PMOD_SCREEN_QUEUE)
-            {
-                return true;
-            }
-
-            return false;
         }
 
         public void PreloadPortraits()
@@ -331,7 +322,7 @@ namespace core.dialog
                     ConversationParamModifier mod = paramMods[j];
 
                     // Not a music parameter then skip it
-                    if (!IsMusicParameter(mod.paramName))
+                    if (!ParameterModifierUtils.IsMusicParameter(mod.paramName))
                     {
                         continue;
                     }

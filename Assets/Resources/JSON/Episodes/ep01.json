@@ -39,7 +39,7 @@
 		"title": "ep01_sc01_03",
 		"treeID": "tr_ep01_sc01",
 		"tags": "ep01",
-		"body": "This is a fairly simple process Captain. While you won't have the ability to hand pick EVERY single member of your crew, you will have have some say.\n\n<<ep01 = \"Onward\">>\n<<MusicFadeIn = \"Factory-On-Mercury_Looping\">>\n\n[[Continue |ep01_sc01_04]]\n\n",
+		"body": "This is a fairly simple process Captain. While you won't have the ability to hand pick EVERY single member of your crew, you will have have some say.\n\n<<ep01 = \"Onward\">>\n<<MusicFadeIn = \"Factory-On-Mercury_Looping\">>\n<<MapPreload = \"map01\">>\n[[Continue |ep01_sc01_04]]\n\n",
 		"image": "fire_emblem/baldguy_0_0",
 		"position": {
 			"x": -1257,
@@ -63,7 +63,7 @@
 		"title": "ep01_sc01_05a",
 		"treeID": "tr_ep01_sc01",
 		"tags": "ep01 end",
-		"body": "That sounds great Mr. Harris, let's see those rosters.\n\n<<MusicFadeOut = \"\">>\n<<ScreenQueue = \"ConfirmScreen\">>",
+		"body": "That sounds great Mr. Harris, let's see those rosters.\n\n<<MusicFadeOut = \"\">>\n<<ScreenQueue = \"ConfirmScreen\">>\n<<MapShow = \"\">>",
 		"image": "fire_emblem/girl_0_0",
 		"position": {
 			"x": -1368,
@@ -75,7 +75,7 @@
 		"title": "ep01_sc01_05b",
 		"treeID": "tr_ep01_sc01",
 		"tags": "ep01 end",
-		"body": "Oh deary...this will be a tough decision but let's get this overwith Mr. Harris.\n\n<<MusicFadeOut = \"\">>",
+		"body": "Oh deary...this will be a tough decision but let's get this overwith Mr. Harris.\n\n<<MusicFadeOut = \"\">>\n<<MapShow = \"\">>",
 		"image": "fire_emblem/girl_0_0",
 		"position": {
 			"x": -1126,
